@@ -17,30 +17,32 @@ function gisHandler () {
         var args = {token: config.token};
 
         soap.createClient(config.serviceUrl, function(err, client) {
-            client.museos(args, function(err, result) {
-                if(err) {
-                    geoJ.return = {};
-                    geoJ.success = false;
-                    geoJ.error = err;
-                    return res.json(404,geoJ);
-                }
-                geoJ.return.features = [];
-                for (var i = 0; i < result.return.item.length; i++) {
-                    (function(j) {
-                        var feature = {
-                            type: "Feature",
-                            properties: {
-                                descripcion: result.return.item[j].descripcion.$value,
-                                ubicacion: result.return.item[j].ubicacion.$value
-                            },
-                            geometry: { type: "Point", coordinates: [  parseFloat(result.return.item[j].longitud.$value) ,parseFloat(result.return.item[j].latitud.$value)] }
-                        };
-                        geoJ.return.features.push(feature);
-                     })(i);
-                }
+            if(client){
+                client.museos(args, function(err, result) {
+                    if(err) {
+                        geoJ.return = {};
+                        geoJ.success = false;
+                        geoJ.error = err;
+                        return res.json(404,geoJ);
+                    }
+                    geoJ.return.features = [];
+                    for (var i = 0; i < result.return.item.length; i++) {
+                        (function(j) {
+                            var feature = {
+                                type: "Feature",
+                                properties: {
+                                    descripcion: result.return.item[j].descripcion.$value,
+                                    ubicacion: result.return.item[j].ubicacion.$value
+                                },
+                                geometry: { type: "Point", coordinates: [  parseFloat(result.return.item[j].longitud.$value) ,parseFloat(result.return.item[j].latitud.$value)] }
+                            };
+                            geoJ.return.features.push(feature);
+                         })(i);
+                    }
 
-                return res.json(200,geoJ);
-            });
+                    return res.json(200,geoJ);
+                });
+            }
         });
     };
 
@@ -48,30 +50,32 @@ function gisHandler () {
         var args = {token: config.token};
 
         soap.createClient(config.serviceUrl, function(err, client) {
-            client.bibliotecas(args, function(err, result) {
-               if(err) {
-                   geoJ.return = {};
-                   geoJ.success = false;
-                   geoJ.error = err;
-                   return res.json(404,geoJ);
-               }
-                geoJ.return.features = [];
-                for (var i = 0; i < result.return.item.length; i++) {
-                    (function(j) {
-                        var feature = {
-                            type: "Feature",
-                            properties: {
-                                descripcion: result.return.item[j].descripcion.$value,
-                                ubicacion: result.return.item[j].ubicacion.$value
-                            },
-                            geometry: { type: "Point", coordinates: [  parseFloat(result.return.item[j].longitud.$value) ,parseFloat(result.return.item[j].latitud.$value)] }
-                        };
-                        geoJ.return.features.push(feature);
-                     })(i);
-                }
+            if(client){
+                client.bibliotecas(args, function(err, result) {
+                   if(err) {
+                       geoJ.return = {};
+                       geoJ.success = false;
+                       geoJ.error = err;
+                       return res.json(404,geoJ);
+                   }
+                    geoJ.return.features = [];
+                    for (var i = 0; i < result.return.item.length; i++) {
+                        (function(j) {
+                            var feature = {
+                                type: "Feature",
+                                properties: {
+                                    descripcion: result.return.item[j].descripcion.$value,
+                                    ubicacion: result.return.item[j].ubicacion.$value
+                                },
+                                geometry: { type: "Point", coordinates: [  parseFloat(result.return.item[j].longitud.$value) ,parseFloat(result.return.item[j].latitud.$value)] }
+                            };
+                            geoJ.return.features.push(feature);
+                         })(i);
+                    }
 
-                return res.json(200,geoJ);
-            });
+                    return res.json(200,geoJ);
+                });
+            }
         });
     };
 
@@ -141,30 +145,32 @@ function gisHandler () {
         var args = {token: config.token};
 
         soap.createClient(config.serviceUrl, function(err, client) {
-            client.centros_de_salud(args, function(err, result) {
-                if(err) {
-                    geoJ.return = {};
-                    geoJ.success = false;
-                    geoJ.error = err;
-                    return res.json(404,geoJ);
-                }
-                geoJ.return.features = [];
-                for (var i = 0; i < result.return.item.length; i++) {
-                    (function(j) {
-                        var feature = {
-                            type: "Feature",
-                            properties: {
-                                descripcion: result.return.item[j].descripcion.$value,
-                                ubicacion: result.return.item[j].ubicacion.$value
-                            },
-                            geometry: { type: "Point", coordinates: [  parseFloat(result.return.item[j].longitud.$value) ,parseFloat(result.return.item[j].latitud.$value)] }
-                        };
-                        geoJ.return.features.push(feature);
-                     })(i);
-                }
+            if(client){
+                client.centros_de_salud(args, function(err, result) {
+                    if(err) {
+                        geoJ.return = {};
+                        geoJ.success = false;
+                        geoJ.error = err;
+                        return res.json(404,geoJ);
+                    }
+                    geoJ.return.features = [];
+                    for (var i = 0; i < result.return.item.length; i++) {
+                        (function(j) {
+                            var feature = {
+                                type: "Feature",
+                                properties: {
+                                    descripcion: result.return.item[j].descripcion.$value,
+                                    ubicacion: result.return.item[j].ubicacion.$value
+                                },
+                                geometry: { type: "Point", coordinates: [  parseFloat(result.return.item[j].longitud.$value) ,parseFloat(result.return.item[j].latitud.$value)] }
+                            };
+                            geoJ.return.features.push(feature);
+                         })(i);
+                    }
 
-                return res.json(200,geoJ);
-            });
+                    return res.json(200,geoJ);
+                });
+            }
         });
     };
 

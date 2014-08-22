@@ -171,7 +171,7 @@ $.getJSON("api/gis/museo", function (data) {
 
 map = L.map("map", {
   zoom: 10,
-  center: [40.702222, -73.979378],
+  center: [-38.000161307805,-57.5567078976633],
   layers: [mapquestOSM,markerClusters, highlight],
   zoomControl: false,
   attributionControl: false
@@ -236,9 +236,9 @@ var locateControl = L.control.locate({
   icon: "icon-direction",
   metric: false,
   strings: {
-    title: "My location",
-    popup: "You are within {distance} {unit} from this point",
-    outsideMapBoundsMsg: "You seem located outside the boundaries of the map"
+    title: "Mi ubicación",
+    popup: "Usted se encuentra dentro de {distance} {unit} de este punto.",
+    outsideMapBoundsMsg: "Esta fuera de los limites del mapa"
   },
   locateOptions: {
     maxZoom: 18,
@@ -248,6 +248,8 @@ var locateControl = L.control.locate({
     timeout: 10000
   }
 }).addTo(map);
+
+//map.on('locationfound', function(){alert("hello");});
 
 var sidebar = L.control.sidebar("sidebar", {
   closeButton: true,

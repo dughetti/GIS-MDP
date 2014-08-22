@@ -56,17 +56,25 @@
     </div>
 
     <div id="map"></div>
+
     <div id="sidebar">
       <div class="sidebar-wrapper">
         <div class="panel panel-default" style="margin: 0px; border: none; border-radius: 0px; -webkit-box-shadow: none; box-shadow: none;">
           <div class="panel-heading">
-            <h3 class="panel-title" style="display: inline;">Points of Interest<button type="button" class="btn btn-xs btn-default pull-right" onclick="sidebar.hide();"><i class="fa fa-chevron-left"></i></button></h3>
+            <h3 class="panel-title" style="display: inline;">Puntos de interés<button type="button" class="btn btn-xs btn-default pull-right" onclick="sidebar.hide();"><i class="fa fa-chevron-left"></i></button></h3>
           </div>
           <div class="panel-body">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" id="poi-tabs">
-              <li class="active"><a href="#salud" onclick="$('#poi-tabs a[href=\'#salud\']').tab('show'); return false;"><img src="assets/img/hospital.png" height="16px" width="14px">&nbsp;Centros salud</a></li>
-              <li><a href="#museo" onclick="$('#poi-tabs a[href=\'#museo\']').tab('show'); return false;"><img src="assets/img/museum.png" height="16px" width="14px">&nbsp;Museos</a></li>
+              <li class="dropdown">
+                <a id="dropdownService" onclick="$('#dropdownService').dropdown();" class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  Servicios <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#salud" onclick="$('#poi-tabs a[href=\'#salud\']').tab('show'); $('#dropdownService').dropdown(); return false;"><img src="assets/img/hospital.png" height="16px" width="14px">&nbsp;Centros salud</a></li>
+                  <li><a href="#museo" onclick="$('#poi-tabs a[href=\'#museo\']').tab('show'); $('#dropdownService').dropdown(); return false;"><img src="assets/img/museum.png" height="16px" width="14px">&nbsp;Museos</a></li>
+                </ul>
+              </li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
@@ -119,6 +127,7 @@
         </div>
       </div>
     </div>
+
     <div id="loading">
       <div class="loading-indicator">
         <div class="progress progress-striped active">
