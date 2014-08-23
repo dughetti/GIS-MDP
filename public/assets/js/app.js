@@ -106,6 +106,7 @@ var parking = L.geoJson(null,
   });
 }
 });
+
 $.getJSON("/data/estacionamientos.json", function (data) {
   L.geoJson(data, 
    { pointToLayer: function (feature, latlng) {
@@ -124,9 +125,29 @@ $.getJSON("/data/estacionamientos.json", function (data) {
     });
   }
 }).addTo(map);
-  //parking.addData(data.return);
-  //map.addLayer(parkingLayer);
 });
+
+$.getJSON("/data/universidades.json", function (data) {
+  L.geoJson(data, 
+   { pointToLayer: function (feature, latlng) {
+    return L.marker(latlng, {
+      icon: L.icon({
+        iconUrl: "assets/img/uni.png",
+        iconSize: [30, 40],
+        iconAnchor: [12, 40],
+        popupAnchor: [0, -25]
+      }),
+      title: feature.properties.descripcion,
+      riseOnHover: true,
+      bounceOnAdd: true, 
+      bounceOnAddOptions: {duration: 500, height: 100}, 
+      bounceOnAddCallback: function() {console.log("done");}
+    });
+  }
+}).addTo(map);
+});
+
+
 
 map = L.map("map", {
   zoom: 10,
