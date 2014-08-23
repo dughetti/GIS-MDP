@@ -1,0 +1,11 @@
+Nombre	Direccion	Telefono	Coordenadas
+UNMDP (Complejo "Manuel Belgrano")	Dean Funes 3350	4753150	-38.005516, -57.571526
+UNMDP (Facultad de Ingeniería - Sede)	Juan Bautista Justo 4302	4816600	-38.011832, -57.580394
+UNMDP (Facultad de Ingeniería - Anexo I)	Juan Bautista Justo 2550	4816600	-38.023332, -57.564569
+UNMDP (Facultad de Ingeniería - Anexo Informática)	Juan Bautista Justo 2002	4816600	-38.026975, -57.560055
+UNMDP (Facultad de Derecho)	25 de Mayo 2855	4940607 / 4935231	-37.996453, -57.547112
+UNMDP (Rectorado)	Juan Bautista Alberdi 2695	4921705	-37.998184, -57.545411
+UTN (Universidad Tecnológica Nacional)	Buque Pesquero Dorrego 281	4805049 / 3479 / 1220	-38.049350, -57.542223
+Universidad CAECE	Olavarría 2464	4861783	-38.011483, -57.539848
+Universidad FASTA	Gascón 3145	4990400	-38.002885, -57.557522
+Universidad Atlántida Argentina	Arenales 2740	4915400	-38.011382, -57.546534
