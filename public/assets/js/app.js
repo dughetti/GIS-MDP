@@ -87,67 +87,11 @@ $.getJSON("/data/bicisendas.json", function (data) {
   L.geoJson(data).addTo(map);
 });
 
-
 var parkingLayer = L.geoJson(null);
-var parking = L.geoJson(null, 
- { pointToLayer: function (feature, latlng) {
-  return L.marker(latlng, {
-    icon: L.icon({
-      iconUrl: "assets/img/estacionamiento_privado.png",
-      iconSize: [30, 40],
-      iconAnchor: [12, 40],
-      popupAnchor: [0, -25]
-    }),
-    title: feature.properties.descripcion,
-    riseOnHover: true,
-    bounceOnAdd: true, 
-    bounceOnAddOptions: {duration: 500, height: 100}, 
-    bounceOnAddCallback: function() {console.log("done");}
-  });
-}
-});
+var parking = createGeoJsonLayer("assets/img/estacionamiento_privado.png", null, null, null, "/data/estacionamientos.json", parkingLayer);
 
-$.getJSON("/data/estacionamientos.json", function (data) {
-  L.geoJson(data, 
-   { pointToLayer: function (feature, latlng) {
-    return L.marker(latlng, {
-      icon: L.icon({
-        iconUrl: "assets/img/estacionamiento_privado.png",
-        iconSize: [30, 40],
-        iconAnchor: [12, 40],
-        popupAnchor: [0, -25]
-      }),
-      title: feature.properties.descripcion,
-      riseOnHover: true,
-      bounceOnAdd: true, 
-      bounceOnAddOptions: {duration: 500, height: 100}, 
-      bounceOnAddCallback: function() {console.log("done");}
-    });
-  }
-}).addTo(map);
-});
-
-$.getJSON("/data/universidades.json", function (data) {
-  L.geoJson(data, 
-   { pointToLayer: function (feature, latlng) {
-    return L.marker(latlng, {
-      icon: L.icon({
-        iconUrl: "assets/img/uni.png",
-        iconSize: [30, 40],
-        iconAnchor: [12, 40],
-        popupAnchor: [0, -25]
-      }),
-      title: feature.properties.descripcion,
-      riseOnHover: true,
-      bounceOnAdd: true, 
-      bounceOnAddOptions: {duration: 500, height: 100}, 
-      bounceOnAddCallback: function() {console.log("done");}
-    });
-  }
-}).addTo(map);
-});
-
-
+var collegeLayer = L.geoJson(null);
+var college = createGeoJsonLayer("assets/img/uni.png", null, null, null, "/data/universidades.json", collegeLayer);
 
 map = L.map("map", {
   zoom: 10,
@@ -168,6 +112,12 @@ map.on("overlayadd", function(e) {
   if (e.layer === educacionMunicipalLayer) {
     markerClusters.addLayer(educacionMunicipal);
   }
+  if (e.layer === parkingLayer) {
+    markerClusters.addLayer(parking);
+  }
+  if (e.layer === collegeLayer) {
+    markerClusters.addLayer(college);
+  }
 });
 
 map.on("overlayremove", function(e) {
@@ -179,6 +129,12 @@ map.on("overlayremove", function(e) {
   }
   if (e.layer === educacionMunicipalLayer) {
     markerClusters.removeLayer(educacionMunicipal);
+  }
+  if (e.layer === parkingLayer) {
+    markerClusters.removeLayer(parking);
+  }
+  if (e.layer === collegeLayer) {
+    markerClusters.removeLayer(college);
   }
 });
 
@@ -274,6 +230,7 @@ var groupedOverlays = {
     "<img src='assets/img/hospital.png' width='30' height='40'>&nbsp;Salud": centroSaludLayer,
     "<img src='assets/img/educacion.png' width='30' height='40'>&nbsp;Educacion": educacionMunicipalLayer,
     "<img src='assets/img/estacionamiento_privado.png' width='30' height='40'>&nbsp;Parking": parkingLayer,
+    "<img src='assets/img/uni.png' width='30' height='40'>&nbsp;College": collegeLayer,
     "<img src='assets/img/museum.png' width='30' height='40'>&nbsp;Museo": museoLayer
   }
 };
