@@ -30,7 +30,7 @@ function sidebarClick(id) {
     sidebar.hide();
     getViewport();
   }
-  map.addLayer(centroSaludLayer).addLayer(museoLayer);
+  map.addLayer(centroSaludLayer).addLayer(museoLayer).add(educacionMunicipalLayer);
   var layer = markerClusters.getLayer(id);
   markerClusters.zoomToShowLayer(layer, function() {
     map.setView([layer.getLatLng().lat, layer.getLatLng().lng], 18);
@@ -76,8 +76,8 @@ var centroSalud = L.geoJson(null, {
     return L.marker(latlng, {
       icon: L.icon({
         iconUrl: "assets/img/hospital.png",
-        iconSize: [24, 28],
-        iconAnchor: [12, 28],
+        iconSize: [30, 40],
+        iconAnchor: [12, 40],
         popupAnchor: [0, -25]
       }),
       title: feature.properties.descripcion,
@@ -113,10 +113,10 @@ var centroSalud = L.geoJson(null, {
   }
 });
 $.getJSON("api/gis/centros_de_salud", function (data) {
-    if(data.success){
-      centroSalud.addData(data.return);
-      map.addLayer(centroSaludLayer);
-    }
+  if(data.success){
+    centroSalud.addData(data.return);
+    map.addLayer(centroSaludLayer);
+  }
 });
 
 /* Empty layer placeholder to add to layer control for listening when to add/remove museums to markerClusters layer */
@@ -126,8 +126,8 @@ var museo = L.geoJson(null, {
     return L.marker(latlng, {
       icon: L.icon({
         iconUrl: "assets/img/museum.png",
-        iconSize: [24, 28],
-        iconAnchor: [12, 28],
+        iconSize: [30, 40],
+        iconAnchor: [12, 40],
         popupAnchor: [0, -25]
       }),
       title: feature.properties.descripcion,
@@ -164,9 +164,33 @@ var museo = L.geoJson(null, {
 });
 $.getJSON("api/gis/museo", function (data) {
   if(data.success){
-     museo.addData(data.return);
-     map.addLayer(museoLayer);
-  }
+   museo.addData(data.return);
+   map.addLayer(museoLayer);
+ }
+});
+
+/* Empty layer placeholder to add to layer control for listening when to add/remove theaters to markerClusters layer */
+var educacionMunicipalLayer = L.geoJson(null);
+var educacionMunicipal = L.geoJson(null, 
+ { pointToLayer: function (feature, latlng) {
+  return L.marker(latlng, {
+    icon: L.icon({
+      iconUrl: "assets/img/educacion.png",
+      iconSize: [30, 40],
+      iconAnchor: [12, 40],
+      popupAnchor: [0, -25]
+    }),
+    title: feature.properties.descripcion,
+    riseOnHover: true,
+    bounceOnAdd: true, 
+    bounceOnAddOptions: {duration: 500, height: 100}, 
+    bounceOnAddCallback: function() {console.log("done");}
+  });
+}
+});
+$.getJSON("api/gis/educacion_publica_municipal", function (data) {
+  educacionMunicipal.addData(data.return);
+  map.addLayer(educacionMunicipalLayer);
 });
 
 map = L.map("map", {
@@ -185,6 +209,9 @@ map.on("overlayadd", function(e) {
   if (e.layer === museoLayer) {
     markerClusters.addLayer(museo);
   }
+  if (e.layer === educacionMunicipalLayer) {
+    markerClusters.addLayer(educacionMunicipal);
+  }
 });
 
 map.on("overlayremove", function(e) {
@@ -194,6 +221,9 @@ map.on("overlayremove", function(e) {
   if (e.layer === museoLayer) {
     markerClusters.removeLayer(museo);
   }
+  if (e.layer === educacionMunicipalLayer) {
+    markerClusters.removeLayer(educacionMunicipal);
+  }
 });
 
 /* Clear feature highlight when map is clicked */
@@ -201,13 +231,13 @@ map.on("click", function(e) {
   highlight.clearLayers();
   var complaint = window.prompt("Por favor ingrese su reclamo");
   if (complaint != null && complaint !== "")
-  $.post('api/reports/', {
-    position: {
-      lat: e.latlng.lat,
-      lng: e.latlng.lng
-    }, 
-    complaint: complaint
-  });
+    $.post('api/reports/', {
+      position: {
+        lat: e.latlng.lat,
+        lng: e.latlng.lng
+      }, 
+      complaint: complaint
+    });
 });
 
 /* Attribution control */
@@ -286,6 +316,7 @@ var baseLayers = {
 var groupedOverlays = {
   "Points of Interest": {
     "<img src='assets/img/hospital.png' width='24' height='28'>&nbsp;Salud": centroSaludLayer,
+    "<img src='assets/img/educacion.png' width='24' height='28'>&nbsp;Educacion": educacionMunicipalLayer,
     "<img src='assets/img/museum.png' width='24' height='28'>&nbsp;Museo": museoLayer
   }
 };
@@ -315,124 +346,124 @@ $(document).one("ajaxStop", function () {
   //   limit: 10
   // });
 
-  var centroBH = new Bloodhound({
-    name: "Salud",
-    datumTokenizer: function (d) {
-      return Bloodhound.tokenizers.whitespace(d.descripcion);
-    },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    local: centroSaludSearch,
-    limit: 10
-  });
-  var saludList = new List("salud", {valueNames: ["salud-descripcion"]}).sort("salud-descripcion", {order:"asc"});
+var centroBH = new Bloodhound({
+  name: "Salud",
+  datumTokenizer: function (d) {
+    return Bloodhound.tokenizers.whitespace(d.descripcion);
+  },
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  local: centroSaludSearch,
+  limit: 10
+});
+var saludList = new List("salud", {valueNames: ["salud-descripcion"]}).sort("salud-descripcion", {order:"asc"});
 
-  var museoBH = new Bloodhound({
-    name: "Museo",
-    datumTokenizer: function (d) {
-      return Bloodhound.tokenizers.whitespace(d.descripcion);
-    },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    local: museoSearch,
-    limit: 10
-  });
-  var museoList = new List("museo", {valueNames: ["museo-descripcion", "museo-ubicacion"]}).sort("museo-descripcion", {order:"asc"});
+var museoBH = new Bloodhound({
+  name: "Museo",
+  datumTokenizer: function (d) {
+    return Bloodhound.tokenizers.whitespace(d.descripcion);
+  },
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  local: museoSearch,
+  limit: 10
+});
+var museoList = new List("museo", {valueNames: ["museo-descripcion", "museo-ubicacion"]}).sort("museo-descripcion", {order:"asc"});
 
-  var geonamesBH = new Bloodhound({
-    name: "GeoNames",
-    datumTokenizer: function (d) {
-      return Bloodhound.tokenizers.whitespace(d.name);
+var geonamesBH = new Bloodhound({
+  name: "GeoNames",
+  datumTokenizer: function (d) {
+    return Bloodhound.tokenizers.whitespace(d.name);
+  },
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  remote: {
+    url: "http://api.geonames.org/searchJSON?username=bootleaf&featureClass=P&maxRows=5&countryCode=US&name_startsWith=%QUERY",
+    filter: function (data) {
+      return $.map(data.geonames, function (result) {
+        return {
+          name: result.name + ", " + result.adminCode1,
+          lat: result.lat,
+          lng: result.lng,
+          source: "GeoNames"
+        };
+      });
     },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: {
-      url: "http://api.geonames.org/searchJSON?username=bootleaf&featureClass=P&maxRows=5&countryCode=US&name_startsWith=%QUERY",
-      filter: function (data) {
-        return $.map(data.geonames, function (result) {
-          return {
-            name: result.name + ", " + result.adminCode1,
-            lat: result.lat,
-            lng: result.lng,
-            source: "GeoNames"
-          };
-        });
+    ajax: {
+      beforeSend: function (jqXhr, settings) {
+        settings.url += "&east=" + map.getBounds().getEast() + "&west=" + map.getBounds().getWest() + "&north=" + map.getBounds().getNorth() + "&south=" + map.getBounds().getSouth();
+        $("#searchicon").removeClass("fa-search").addClass("fa-refresh fa-spin");
       },
-      ajax: {
-        beforeSend: function (jqXhr, settings) {
-          settings.url += "&east=" + map.getBounds().getEast() + "&west=" + map.getBounds().getWest() + "&north=" + map.getBounds().getNorth() + "&south=" + map.getBounds().getSouth();
-          $("#searchicon").removeClass("fa-search").addClass("fa-refresh fa-spin");
-        },
-        complete: function (jqXHR, status) {
-          $('#searchicon').removeClass("fa-refresh fa-spin").addClass("fa-search");
-        }
+      complete: function (jqXHR, status) {
+        $('#searchicon').removeClass("fa-refresh fa-spin").addClass("fa-search");
       }
-    },
-    limit: 10
-  });
+    }
+  },
+  limit: 10
+});
 
-  museoBH.initialize();
-  geonamesBH.initialize();
-  centroBH.initialize();
+museoBH.initialize();
+geonamesBH.initialize();
+centroBH.initialize();
 
 
-  /* instantiate the typeahead UI */
-  $("#searchbox").typeahead({
-    minLength: 3,
-    highlight: true,
-    hint: false
-  }, {
-    name: "Salud",
-    displayKey: "descripcion",
-    source: centroBH.ttAdapter(),
-    templates: {
-      header: "<h4 class='typeahead-header'><img src='assets/img/hospital.png' width='24' height='28'>&nbsp;Salud</h4>",
-      suggestion: Handlebars.compile(["{{descripcion}}<br>&nbsp;<small>{{ubicacion}}</small>"].join(""))
+/* instantiate the typeahead UI */
+$("#searchbox").typeahead({
+  minLength: 3,
+  highlight: true,
+  hint: false
+}, {
+  name: "Salud",
+  displayKey: "descripcion",
+  source: centroBH.ttAdapter(),
+  templates: {
+    header: "<h4 class='typeahead-header'><img src='assets/img/hospital.png' width='24' height='28'>&nbsp;Salud</h4>",
+    suggestion: Handlebars.compile(["{{descripcion}}<br>&nbsp;<small>{{ubicacion}}</small>"].join(""))
+  }
+}, {
+  name: "Museo",
+  displayKey: "descripcion",
+  source: museoBH.ttAdapter(),
+  templates: {
+    header: "<h4 class='typeahead-header'><img src='assets/img/museum.png' width='24' height='28'>&nbsp;Museo</h4>",
+    suggestion: Handlebars.compile(["{{descripcion}}<br>&nbsp;<small>{{ubicacion}}</small>"].join(""))
+  }
+}, {
+  name: "GeoNames",
+  displayKey: "name",
+  source: geonamesBH.ttAdapter(),
+  templates: {
+    header: "<h4 class='typeahead-header'><img src='assets/img/globe.png' width='25' height='25'>&nbsp;GeoNames</h4>"
+  }
+}).on("typeahead:selected", function (obj, datum) {
+  if (datum.source === "Salud") {
+    if (!map.hasLayer(centroSaludLayer)) {
+      map.addLayer(centroSaludLayer);
     }
-  }, {
-    name: "Museo",
-    displayKey: "descripcion",
-    source: museoBH.ttAdapter(),
-    templates: {
-      header: "<h4 class='typeahead-header'><img src='assets/img/museum.png' width='24' height='28'>&nbsp;Museo</h4>",
-      suggestion: Handlebars.compile(["{{descripcion}}<br>&nbsp;<small>{{ubicacion}}</small>"].join(""))
+    map.setView([datum.lat, datum.lng], 17);
+    if (map._layers[datum.id]) {
+      map._layers[datum.id].fire("click");
     }
-  }, {
-    name: "GeoNames",
-    displayKey: "name",
-    source: geonamesBH.ttAdapter(),
-    templates: {
-      header: "<h4 class='typeahead-header'><img src='assets/img/globe.png' width='25' height='25'>&nbsp;GeoNames</h4>"
+  }
+  if (datum.source === "Museo") {
+    if (!map.hasLayer(museoLayer)) {
+      map.addLayer(museoLayer);
     }
-  }).on("typeahead:selected", function (obj, datum) {
-    if (datum.source === "Salud") {
-      if (!map.hasLayer(centroSaludLayer)) {
-        map.addLayer(centroSaludLayer);
-      }
-      map.setView([datum.lat, datum.lng], 17);
-      if (map._layers[datum.id]) {
-        map._layers[datum.id].fire("click");
-      }
+    map.setView([datum.lat, datum.lng], 17);
+    if (map._layers[datum.id]) {
+      map._layers[datum.id].fire("click");
     }
-    if (datum.source === "Museo") {
-      if (!map.hasLayer(museoLayer)) {
-        map.addLayer(museoLayer);
-      }
-      map.setView([datum.lat, datum.lng], 17);
-      if (map._layers[datum.id]) {
-        map._layers[datum.id].fire("click");
-      }
-    }
-    if (datum.source === "GeoNames") {
-      map.setView([datum.lat, datum.lng], 14);
-    }
-    if ($(".navbar-collapse").height() > 50) {
-      $(".navbar-collapse").collapse("hide");
-    }
-  }).on("typeahead:opened", function () {
-    $(".navbar-collapse.in").css("max-height", $(document).height() - $(".navbar-header").height());
-    $(".navbar-collapse.in").css("height", $(document).height() - $(".navbar-header").height());
-  }).on("typeahead:closed", function () {
-    $(".navbar-collapse.in").css("max-height", "");
-    $(".navbar-collapse.in").css("height", "");
-  });
-  $(".twitter-typeahead").css("position", "static");
-  $(".twitter-typeahead").css("display", "block");
+  }
+  if (datum.source === "GeoNames") {
+    map.setView([datum.lat, datum.lng], 14);
+  }
+  if ($(".navbar-collapse").height() > 50) {
+    $(".navbar-collapse").collapse("hide");
+  }
+}).on("typeahead:opened", function () {
+  $(".navbar-collapse.in").css("max-height", $(document).height() - $(".navbar-header").height());
+  $(".navbar-collapse.in").css("height", $(document).height() - $(".navbar-header").height());
+}).on("typeahead:closed", function () {
+  $(".navbar-collapse.in").css("max-height", "");
+  $(".navbar-collapse.in").css("height", "");
+});
+$(".twitter-typeahead").css("position", "static");
+$(".twitter-typeahead").css("display", "block");
 });
