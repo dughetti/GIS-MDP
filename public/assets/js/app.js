@@ -1,5 +1,5 @@
 var map, centroSaludSearch = [], bibliotecaSearch = [], museoSearch = [];
-
+var sendReport = false;
 $(document).ready(function() {
   getViewport();
 });
@@ -141,15 +141,18 @@ map.on("overlayremove", function(e) {
 /* Clear feature highlight when map is clicked */
 map.on("click", function(e) {
   highlight.clearLayers();
-  var complaint = window.prompt("Por favor ingrese su reclamo");
-  if (complaint != null && complaint !== "")
-    $.post('api/reports/', {
-      position: {
-        lat: e.latlng.lat,
-        lng: e.latlng.lng
-      }, 
-      complaint: complaint
-    });
+  if (sendReport) {
+    var complaint = window.prompt("Por favor ingrese su reclamo");
+    if (complaint != null && complaint !== "")
+      $.post('api/reports/', {
+        position: {
+          lat: e.latlng.lat,
+          lng: e.latlng.lng
+        }, 
+        complaint: complaint
+      });
+    sendReport = false;
+  }
 });
 
 /* Attribution control */
