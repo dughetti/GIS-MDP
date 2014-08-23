@@ -81,7 +81,10 @@ var centroSalud = L.geoJson(null, {
         popupAnchor: [0, -25]
       }),
       title: feature.properties.descripcion,
-      riseOnHover: true
+      riseOnHover: true,
+      bounceOnAdd: true, 
+      bounceOnAddOptions: {duration: 500, height: 100}, 
+      bounceOnAddCallback: function() {console.log("done");}
     });
   },
   onEachFeature: function (feature, layer) {
@@ -113,10 +116,8 @@ var centroSalud = L.geoJson(null, {
   }
 });
 $.getJSON("api/gis/centros_de_salud", function (data) {
-  if(data.success){
-    centroSalud.addData(data.return);
-    map.addLayer(centroSaludLayer);
-  }
+ centroSalud.addData(data.return);
+ map.addLayer(centroSaludLayer);
 });
 
 /* Empty layer placeholder to add to layer control for listening when to add/remove museums to markerClusters layer */
@@ -131,7 +132,10 @@ var museo = L.geoJson(null, {
         popupAnchor: [0, -25]
       }),
       title: feature.properties.descripcion,
-      riseOnHover: true
+      riseOnHover: true,
+      bounceOnAdd: true, 
+      bounceOnAddOptions: {duration: 500, height: 100}, 
+      bounceOnAddCallback: function() {console.log("done");}
     });
   },
   onEachFeature: function (feature, layer) {
@@ -163,10 +167,8 @@ var museo = L.geoJson(null, {
   }
 });
 $.getJSON("api/gis/museo", function (data) {
-  if(data.success){
-   museo.addData(data.return);
-   map.addLayer(museoLayer);
- }
+ museo.addData(data.return);
+ map.addLayer(museoLayer);
 });
 
 /* Empty layer placeholder to add to layer control for listening when to add/remove theaters to markerClusters layer */
@@ -191,6 +193,56 @@ var educacionMunicipal = L.geoJson(null,
 $.getJSON("api/gis/educacion_publica_municipal", function (data) {
   educacionMunicipal.addData(data.return);
   map.addLayer(educacionMunicipalLayer);
+});
+
+
+
+
+//var myLayer = L.geoJson().addTo(map);
+
+$.getJSON("/data/bicisendas.json", function (data) {
+  L.geoJson(data).addTo(map);
+});
+
+
+var parkingLayer = L.geoJson(null);
+var parking = L.geoJson(null, 
+ { pointToLayer: function (feature, latlng) {
+  return L.marker(latlng, {
+    icon: L.icon({
+      iconUrl: "assets/img/estacionamiento_privado.png",
+      iconSize: [30, 40],
+      iconAnchor: [12, 40],
+      popupAnchor: [0, -25]
+    }),
+    title: feature.properties.descripcion,
+    riseOnHover: true,
+    bounceOnAdd: true, 
+    bounceOnAddOptions: {duration: 500, height: 100}, 
+    bounceOnAddCallback: function() {console.log("done");}
+  });
+}
+});
+$.getJSON("/data/estacionamientos.json", function (data) {
+  L.geoJson(data, 
+   { pointToLayer: function (feature, latlng) {
+    return L.marker(latlng, {
+      icon: L.icon({
+        iconUrl: "assets/img/estacionamiento_privado.png",
+        iconSize: [30, 40],
+        iconAnchor: [12, 40],
+        popupAnchor: [0, -25]
+      }),
+      title: feature.properties.descripcion,
+      riseOnHover: true,
+      bounceOnAdd: true, 
+      bounceOnAddOptions: {duration: 500, height: 100}, 
+      bounceOnAddCallback: function() {console.log("done");}
+    });
+  }
+}).addTo(map);
+  //parking.addData(data.return);
+  //map.addLayer(parkingLayer);
 });
 
 map = L.map("map", {
@@ -315,9 +367,10 @@ var baseLayers = {
 
 var groupedOverlays = {
   "Points of Interest": {
-    "<img src='assets/img/hospital.png' width='24' height='28'>&nbsp;Salud": centroSaludLayer,
-    "<img src='assets/img/educacion.png' width='24' height='28'>&nbsp;Educacion": educacionMunicipalLayer,
-    "<img src='assets/img/museum.png' width='24' height='28'>&nbsp;Museo": museoLayer
+    "<img src='assets/img/hospital.png' width='30' height='40'>&nbsp;Salud": centroSaludLayer,
+    "<img src='assets/img/educacion.png' width='30' height='40'>&nbsp;Educacion": educacionMunicipalLayer,
+    "<img src='assets/img/estacionamiento_privado.png' width='30' height='40'>&nbsp;Parking": parkingLayer,
+    "<img src='assets/img/museum.png' width='30' height='40'>&nbsp;Museo": museoLayer
   }
 };
 
@@ -414,7 +467,7 @@ $("#searchbox").typeahead({
   displayKey: "descripcion",
   source: centroBH.ttAdapter(),
   templates: {
-    header: "<h4 class='typeahead-header'><img src='assets/img/hospital.png' width='24' height='28'>&nbsp;Salud</h4>",
+    header: "<h4 class='typeahead-header'><img src='assets/img/hospital.png' width='30' height='40'>&nbsp;Salud</h4>",
     suggestion: Handlebars.compile(["{{descripcion}}<br>&nbsp;<small>{{ubicacion}}</small>"].join(""))
   }
 }, {
@@ -422,7 +475,7 @@ $("#searchbox").typeahead({
   displayKey: "descripcion",
   source: museoBH.ttAdapter(),
   templates: {
-    header: "<h4 class='typeahead-header'><img src='assets/img/museum.png' width='24' height='28'>&nbsp;Museo</h4>",
+    header: "<h4 class='typeahead-header'><img src='assets/img/museum.png' width='30' height='40'>&nbsp;Museo</h4>",
     suggestion: Handlebars.compile(["{{descripcion}}<br>&nbsp;<small>{{ubicacion}}</small>"].join(""))
   }
 }, {

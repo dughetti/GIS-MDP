@@ -1,0 +1,28 @@
+
+{
+    "type": "FeatureCollection",
+    "features": [
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.571526,-38.005516]},"properties": {"name":"UNMDP (Complejo Manuel Belgrano"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.580394,-38.011832]},"properties": {"name":"UNMDP (Facultad de Ingenieria - Sede)"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.564569,-38.023332]},"properties": {"name":"UNMDP (Facultad de Ingenieria - Anexo I)"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.560055,-38.026975]},"properties": {"name":"UNMDP (Facultad de Ingeniera - Anexo Informatica)"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.547112,-37.996453]},"properties": {"name":"UNMDP (Facultad de Derecho)"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.545411,-37.998184]},"properties": {"name":"UNMDP (Rectorado)"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.542223,-38.04935]},"properties": {"name":"UTN (Universidad Tecnologica Nacional)"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.539848,-38.011483]},"properties": {"name":"Universidad CAECE"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.557522,-38.002885]},"properties": {"name":"Universidad FASTA"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.546534,-38.011382]},"properties": {"name":"Universidad Atlantida Argentina"}}
+
+]}
+
+
+
+
+
+
+
+
+
+
+
+
