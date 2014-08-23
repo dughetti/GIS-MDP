@@ -45,8 +45,64 @@
         <ul class="nav navbar-nav">
           <li><a id="toolsDrop" href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="sidebar.toggle(); return false;"><i class="fa fa-list" ></i>&nbsp;&nbsp;Puntos de Interés</a></li>
         </ul>
+        <button class="btn btn-success btnAhorro" data-toggle="modal" data-target="#modalAhorro">
+          Calculador de ahorro
+        </button>
       </div><!--/.navbar-collapse -->
   </div>
+
+  <div class="modal fade" id="modalAhorro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">Calcula Ahorro</h4>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+            <div class="col-xs-4">
+                <span>¿En que viajas?</span>
+            </div>
+            <div class="col-xs-8">
+                <div class="btn-group" data-toggle="buttons">
+                  <label class="btn btn-mobility btn-primary active" value="cole">
+                    <input type="radio" class="radMobility" name="options" id="option1" checked> Colectivo
+                  </label>
+                  <label class="btn btn-mobility btn-primary" value="taxi">
+                    <input type="radio" class="radMobility" name="options" id="option2"> Taxi
+                  </label>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-xs-4">
+                <span id="txtAsk">¿Cuantos colectivos tomas por dia?</span>
+            </div>
+            <div class="col-xs-8">
+                <input type="number" id="txtCantidad" class="form-control">
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-xs-12">
+                <a id="btnMakeCalculo" class="btn btn-success btn-block"><span class="glyphicon glyphicon-usd"></span>&nbsp;Calcular</a>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-xs-12">
+                <h3 id="txtCalculo">Ahorro por mes: $</h3>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
   <div id="map"></div>
     <div id="sidebar">
@@ -167,5 +223,6 @@
           <script src="assets/leaflet.bouncemarker-master/bouncemarker.js"></script>
 
           <script src="assets/js/app.js"></script>
+          <script src="assets/js/calcula.js"></script>
         </body>
       </html>
