@@ -14,5 +14,5 @@ var express = require('express'),
   // Application routes
   routes(app);
 
-  app.listen(3000);
-  console.log('Express server listening on port 3000');
+  app.listen(7000);
+  console.log('Express server listening on port 7000');
