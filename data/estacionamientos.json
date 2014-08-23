@@ -1,0 +1,44 @@
+
+{
+    "type": "FeatureCollection",
+    "features": [
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.547797,-37.995371]},"properties": {"name":"Hipolito Yrigoyen 1392"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.550523,-37.996408]},"properties": {"name":"Luro 3039"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.552206,-37.998964]},"properties": {"name":"Rioja y Belgrano"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.553055,-37.998284]},"properties": {"name":"Catamarca 1877"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.550005,-37.999]},"properties": {"name":"Rivadavia 2820"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.548484,-38.000855]},"properties": {"name":"Belgrano 2635"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.547692,-38.001239]},"properties": {"name":"Belgrano 2559"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.546476,-38.001842]},"properties": {"name":"Belgrano 2437"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.547006,-38.003121]},"properties": {"name":"Santa Fe 2035"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.547902,-38.003343]},"properties": {"name":"Bolivar 2455"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.548065,-38.002755]},"properties": {"name":"Santiago del Estero 2050"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.548753,-38.003568]},"properties": {"name":"Santiago del Estero 2151"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.54976,-38.002453]},"properties": {"name":"Bolivar 2631"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.550242,-38.001967]},"properties": {"name":"San Luis 2078"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.552243,-38.000906]},"properties": {"name":"Hipolito Yrigoyen 2071"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.554666,-38.000275]},"properties": {"name":"Catamarca 2125"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.555943,-38.00047]},"properties": {"name":"Colon 3100"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.556437,-38.000238]},"properties": {"name":"Colon 3231"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.556878,-37.999471]},"properties": {"name":"Salta 2151"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.556729,-37.99889]},"properties": {"name":"Bolivar 3323"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.557009,-37.998754]},"properties": {"name":"Bolivar 3349"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.557386,-37.997441]},"properties": {"name":"Moreno 3450"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.556592,-37.997319]},"properties": {"name":"Jujuy 1956"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.555343,-37.995767]},"properties": {"name":"Jujuy 1754"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.553837,-37.995675]},"properties": {"name":"Salta 1678"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.550647,-37.997604]},"properties": {"name":"San Martin 2980"}},
+{"type": "Feature","geometry": {"type": "Point","coordinates":[-57.551631,-37.99928]},"properties": {"name":"Belgrano 2944"}}
+]}
+
+
+
+
+
+
+
+
+
+
+
+
