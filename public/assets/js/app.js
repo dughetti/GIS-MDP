@@ -89,44 +89,7 @@ $.getJSON("/data/bicisendas.json", function (data) {
 
 
 var parkingLayer = L.geoJson(null);
-var parking = L.geoJson(null, 
- { pointToLayer: function (feature, latlng) {
-  return L.marker(latlng, {
-    icon: L.icon({
-      iconUrl: "assets/img/estacionamiento_privado.png",
-      iconSize: [30, 40],
-      iconAnchor: [12, 40],
-      popupAnchor: [0, -25]
-    }),
-    title: feature.properties.descripcion,
-    riseOnHover: true,
-    bounceOnAdd: true, 
-    bounceOnAddOptions: {duration: 500, height: 100}, 
-    bounceOnAddCallback: function() {console.log("done");}
-  });
-}
-});
-$.getJSON("/data/estacionamientos.json", function (data) {
-  L.geoJson(data, 
-   { pointToLayer: function (feature, latlng) {
-    return L.marker(latlng, {
-      icon: L.icon({
-        iconUrl: "assets/img/estacionamiento_privado.png",
-        iconSize: [30, 40],
-        iconAnchor: [12, 40],
-        popupAnchor: [0, -25]
-      }),
-      title: feature.properties.descripcion,
-      riseOnHover: true,
-      bounceOnAdd: true, 
-      bounceOnAddOptions: {duration: 500, height: 100}, 
-      bounceOnAddCallback: function() {console.log("done");}
-    });
-  }
-}).addTo(map);
-  //parking.addData(data.return);
-  //map.addLayer(parkingLayer);
-});
+var parking = createGeoJsonLayer("assets/img/estacionamiento_privado.png", null, null, null, "/data/estacionamientos.json", parkingLayer);
 
 map = L.map("map", {
   zoom: 10,
@@ -147,6 +110,9 @@ map.on("overlayadd", function(e) {
   if (e.layer === educacionMunicipalLayer) {
     markerClusters.addLayer(educacionMunicipal);
   }
+  if (e.layer === parkingLayer) {
+    markerClusters.addLayer(parking);
+  }
 });
 
 map.on("overlayremove", function(e) {
@@ -158,6 +124,9 @@ map.on("overlayremove", function(e) {
   }
   if (e.layer === educacionMunicipalLayer) {
     markerClusters.removeLayer(educacionMunicipal);
+  }
+  if (e.layer === parkingLayer) {
+    markerClusters.removeLayer(parking);
   }
 });
 
