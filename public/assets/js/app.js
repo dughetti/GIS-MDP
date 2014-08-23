@@ -88,7 +88,7 @@ $.getJSON("/data/bicisendas.json", function (data) {
 });
 
 var parkingLayer = L.geoJson(null);
-var parking = createGeoJsonLayer("assets/img/estacionamiento_privado.png", null, null, null, "/data/estacionamientos.json", parkingLayer);
+var parking = createGeoJsonLayer("assets/img/parkingbike2.png", null, null, null, "/data/estacionamientos.json", parkingLayer);
 
 var collegeLayer = L.geoJson(null);
 var college = createGeoJsonLayer("assets/img/uni.png", null, null, null, "/data/universidades.json", collegeLayer);
@@ -229,7 +229,7 @@ var groupedOverlays = {
   "Points of Interest": {
     "<img src='assets/img/hospital.png' width='30' height='40'>&nbsp;Salud": centroSaludLayer,
     "<img src='assets/img/educacion.png' width='30' height='40'>&nbsp;Educacion": educacionMunicipalLayer,
-    "<img src='assets/img/estacionamiento_privado.png' width='30' height='40'>&nbsp;Parking": parkingLayer,
+    "<img src='assets/img/parkingbike2.png' width='30' height='40'>&nbsp;Parking": parkingLayer,
     "<img src='assets/img/uni.png' width='30' height='40'>&nbsp;College": collegeLayer,
     "<img src='assets/img/museum.png' width='30' height='40'>&nbsp;Museo": museoLayer
   }
