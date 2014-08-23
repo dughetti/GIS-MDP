@@ -7,7 +7,7 @@ function reportsHandler () {
     "use strict";
 
     this.submitReport = function(req, res, next) {
-        fs.appendFile('./hackatest.txt', req.body.position.lat + " " + req.body.position.lng + ' ' + req.body.complaint + '\n\r', function(err) {});
+        fs.appendFile('./hackatest.txt', req.body.position.lat + " " + req.body.position.lng + ' ' + req.body.complaint + ';', function(err) {});
     };
 }
 
