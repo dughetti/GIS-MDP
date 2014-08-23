@@ -69,8 +69,12 @@ var markerClusters = new L.MarkerClusterGroup({
   disableClusteringAtZoom: 16
 });
 
-/* Empty layer placeholder to add to layer control for listening when to add/remove theaters to markerClusters layer */
 var centroSaludLayer = L.geoJson(null);
+var centroSalud = createGeoJsonLayer("assets/img/hospital.png", "salud-table", centroSaludSearch, "Salud", "api/gis/centros_de_salud", centroSaludLayer);
+
+/* Empty layer placeholder to add to layer control for listening when to add/remove theaters to markerClusters layer */
+
+/*var centroSaludLayer = L.geoJson(null);
 var centroSalud = L.geoJson(null, {
   pointToLayer: function (feature, latlng) {
     return L.marker(latlng, {
@@ -117,13 +121,13 @@ $.getJSON("api/gis/centros_de_salud", function (data) {
       centroSalud.addData(data.return);
       map.addLayer(centroSaludLayer);
     }
-});
+});*/
 
 /* Empty layer placeholder to add to layer control for listening when to add/remove museums to markerClusters layer */
 var museoLayer = L.geoJson(null);
 var museo = L.geoJson(null, {
   pointToLayer: function (feature, latlng) {
-    return L.marker(latlng, {
+    var marker = L.marker(latlng, {
       icon: L.icon({
         iconUrl: "assets/img/museum.png",
         iconSize: [24, 28],
@@ -133,6 +137,13 @@ var museo = L.geoJson(null, {
       title: feature.properties.descripcion,
       riseOnHover: true
     });
+    var content = "<h4 style=\"color: #428bca;\">" + feature.properties.descripcion + "</h4><table class='table table-striped table-bordered table-condensed'>" + "<tr><th>Descripcion</th><td>" + feature.properties.descripcion + "</td></tr>" + "<tr><th>Ubicación</th><td>" + feature.properties.ubicacion + "</td></tr>" + "<table>";
+    var popup = marker.bindPopup(content);
+    marker.on({click: function(e) {
+      popup.openPopup();
+    }});
+
+    return marker;
   },
   onEachFeature: function (feature, layer) {
     if (feature.properties) {
@@ -436,3 +447,58 @@ $(document).one("ajaxStop", function () {
   $(".twitter-typeahead").css("position", "static");
   $(".twitter-typeahead").css("display", "block");
 });
+
+function createGeoJsonLayer(iconUrl, tableId, searcher, source, apiUrl, layer) {
+  var realLayer = L.geoJson(null, {
+    pointToLayer: function (feature, latlng) {
+      var marker = L.marker(latlng, {
+        icon: L.icon({
+          iconUrl: iconUrl,
+          iconSize: [24, 28],
+          iconAnchor: [12, 28],
+          popupAnchor: [0, -25]
+        }),
+        title: feature.properties.descripcion,
+        riseOnHover: true
+      })  ;
+      var content = "<h4 style=\"color: #428bca;\">" + feature.properties.descripcion + "</h4><table class='table table-striped table-bordered table-condensed'>" + "<tr><th>Descripcion</th><td>" + feature.properties.descripcion + "</td></tr>" + "<tr><th>Ubicación</th><td>" + feature.properties.ubicacion + "</td></tr>" + "<table>";
+      var popup = marker.bindPopup(content);
+      marker.on({click: function(e) {
+        popup.openPopup();
+      }});
+
+      return marker;
+    },
+    onEachFeature: function (feature, layer) {
+      if (feature.properties) {
+        var content = "<table class='table table-striped table-bordered table-condensed'>" + "<tr><th>Descripcion</th><td>" + feature.properties.descripcion + "</td></tr>" + "<tr><th>Ubicación</th><td>" + feature.properties.ubicacion + "</td></tr>" + "<table>";
+        layer.on({
+          click: function (e) {
+            highlight.clearLayers().addLayer(L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
+              stroke: false,
+              fillColor: "#00FFFF",
+              fillOpacity: 0.7,
+              radius: 10
+            }));
+          }
+        });
+        $("#" + tableId + " tbody").append('<tr style="cursor: pointer;" onclick="sidebarClick('+L.stamp(layer)+'); return false;"><td class="museo-descripcion">'+layer.feature.properties.descripcion+'<i class="fa fa-chevron-right pull-right"></td></tr>');
+        searcher.push({
+          descripcion: layer.feature.properties.descripcion,
+          ubicacion: layer.feature.properties.ubicacion,
+          source: source,
+          id: L.stamp(layer),
+          lat: layer.feature.geometry.coordinates[1],
+          lng: layer.feature.geometry.coordinates[0]
+        });
+      }
+    }
+  });
+  $.getJSON(apiUrl, function (data) {
+    if(data.success){
+       realLayer.addData(data.return);
+       map.addLayer(layer);
+    }
+  });
+  return realLayer;
+}
