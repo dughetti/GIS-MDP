@@ -454,8 +454,8 @@ function createGeoJsonLayer(iconUrl, tableId, searcher, source, apiUrl, layer) {
       var marker = L.marker(latlng, {
         icon: L.icon({
           iconUrl: iconUrl,
-          iconSize: [24, 28],
-          iconAnchor: [12, 28],
+          iconSize: [30, 40],
+          iconAnchor: [12, 40],
           popupAnchor: [0, -25]
         }),
         title: feature.properties.descripcion,
