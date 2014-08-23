@@ -7,10 +7,10 @@ $(function () {
 	$('.btn-mobility').click(function () {
 		switch ($(this).attr('value'))
 		{
-			case 'cole':$('#txtAsk').html('¿Cuantos colectivos tomas por dia?')
+			case 'cole':$('#txtAsk').html('¿Cuántos colectivos tomas por día?')
 						break;
 
-			case 'taxi':$('#txtAsk').html('¿Cuantas cuadras viajas en taxi por dia?')
+			case 'taxi':$('#txtAsk').html('¿Cuántas cuadras viajas en taxi por día?')
 						break;
 
 			default: break;
