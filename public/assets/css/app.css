@@ -60,6 +60,14 @@ input[type="radio"], input[type="checkbox"] {
 .table {
   margin-bottom: 0px;
 }
+.navbar-color {
+  background-color: #008bcb;
+  border-color: #008bcb;
+}
+#toolsDrop{
+  color: white;
+  font-weight: bold;
+}
 .navbar .navbar-brand {
   font-weight: bold;
   font-size: 25px;

@@ -27,30 +27,24 @@
   </head>
 
   <body>
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar-color navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">GIS</a>
+        <a class="navbar-brand" href="#">GIS + Mardel en Bici</a>
       </div>
       <div class="navbar-collapse collapse">
         <form class="navbar-form navbar-right" role="search">
           <div class="form-group has-feedback navbar-right">
-              <input id="searchbox" type="text" placeholder="Search" class="form-control">
+              <input id="searchbox" type="text" placeholder="Buscar punto Interés" class="form-control">
               <span id="searchicon" class="fa fa-search form-control-feedback"></span>
           </div>
         </form>
         <ul class="nav navbar-nav">
-          <li class="dropdown">
-            <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe" style="color: white"></i>&nbsp;&nbsp;Tools <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="map.fitBounds(boroughs.getBounds()); return false;"><i class="fa fa-arrows-alt"></i>&nbsp;&nbsp;Zoom To Full Extent</a></li>
-            </ul>
-          </li>
-          <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="sidebar.toggle(); return false;"><i class="fa fa-list" style="color: white"></i>&nbsp;&nbsp;POI List</a></li>
+          <li><a id="toolsDrop" href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="sidebar.toggle(); return false;"><i class="fa fa-list" ></i>&nbsp;&nbsp;Puntos de Interés</a></li>
         </ul>
       </div><!--/.navbar-collapse -->
     </div>
@@ -75,6 +69,14 @@
                   <li><a href="#museo" onclick="$('#poi-tabs a[href=\'#museo\']').tab('show'); $('#dropdownService').dropdown(); return false;"><img src="assets/img/museum.png" height="16px" width="14px">&nbsp;Museos</a></li>
                 </ul>
               </li>
+              <li class="dropdown">
+                <a id="dropdownServiceBici" onclick="$('#dropdownServiceBici').dropdown();" class="dropdown-toggle" data-toggle="dropdown" href="#">Mardel en Bici</a>
+                  <ul class="dropdown-menu" role="menu">
+                    <li><a href=""><span class="glyphicon glyphicon-road"></span>Bicisendas</a></li>
+                    <li><a href=""><span class="glyphicon glyphicon-wrench"></span>Bicicleterías</a></li>
+                    <li><a href=""><span class="glyphicon glyphicon-info-sign"></span>Parking Bicicleta</a></li>
+                  </ul>
+              </li>
             </ul>
             <!-- Tab panes -->
             <div class="tab-content">
@@ -82,10 +84,10 @@
                 <p>
                   <div class="row">
                     <div class="col-xs-8 col-md-8">
-                      <input type="text" class="form-control search" placeholder="Search" />
+                      <input type="text" class="form-control search" placeholder="Buscar punto interés" />
                     </div>
                     <div class="col-xs-4 col-md-4">
-                      <button type="button" class="btn btn-primary pull-right sort" data-sort="salud-descripcion"><i class="fa fa-sort"></i>&nbsp;&nbsp;Sort</button>
+                      <button type="button" class="btn btn-primary pull-right sort" data-sort="salud-descripcion"><i class="fa fa-sort"></i>&nbsp;&nbsp;Ordenar</button>
                     </div>
                   </div>
                 </p>
