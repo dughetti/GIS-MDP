@@ -230,7 +230,7 @@ var groupedOverlays = {
     "<img src='assets/img/hospital.png' width='30' height='40'>&nbsp;Salud": centroSaludLayer,
     "<img src='assets/img/educacion.png' width='30' height='40'>&nbsp;Educacion": educacionMunicipalLayer,
     "<img src='assets/img/parkingbike2.png' width='30' height='40'>&nbsp;Parking": parkingLayer,
-    "<img src='assets/img/uni.png' width='30' height='40'>&nbsp;College": collegeLayer,
+    "<img src='assets/img/uni.png' width='30' height='40'>&nbsp;Universidades": collegeLayer,
     "<img src='assets/img/museum.png' width='30' height='40'>&nbsp;Museo": museoLayer
   }
 };
