@@ -64,6 +64,9 @@ input[type="radio"], input[type="checkbox"] {
   background-color: #008bcb;
   border-color: #008bcb;
 }
+.btnAhorro {
+  margin: 7px;
+}
 #toolsDrop{
   color: white;
   font-weight: bold;
